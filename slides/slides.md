@@ -504,9 +504,9 @@ Only require SciPy Stack:
  - Scikit-learn:
     + [Lecture material](https://scipy-lectures.github.io/advanced/scikit-learn/index.html)
     + Includes SVMs, can use those for image processing among other things...
- - FilterPy:
-    + Kalman filtering and optimal estimation:
+ - FilterPy, Kalman filtering and optimal estimation:
     + [FilterPy on GitHub](https://github.com/rlabbe/filterpy)
+ - [An extensive list of machine learning packages](https://github.com/svaksha/pythonidae/blob/master/AI.md)
 
 Code {data-background="images/blank.png"}
 ----
