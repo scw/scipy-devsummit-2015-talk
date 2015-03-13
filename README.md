@@ -1,7 +1,7 @@
 Python: Working with Scientific Data
 ====================================
 
-## Shaun Walbridge & Kevin Butler
+### Shaun Walbridge & Kevin Butler
 ### Esri DevSummit 2015
 
 
