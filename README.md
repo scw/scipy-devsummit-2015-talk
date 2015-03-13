@@ -1,11 +1,13 @@
-% Python: Working with Scientific Data
-% Shaun Walbridge; Kevin Butler
-% Esri DevSummit 2015
+Python: Working with Scientific Data
+====================================
+
+## Shaun Walbridge & Kevin Butler
+### Esri DevSummit 2015
 
 
 **[See the presentation](http://4326.us/scipy)**
 
-**[Download a PDF handout version]()**
+**[Download a PDF handout version](https://github.com/scw/scipy-devsummit-2015-talk/blob/master/slides/devsummit-2015-scipy-arcgis-presentation.pdf?raw=true)**
 
 Description
 -----------
