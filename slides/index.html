@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Shaun Walbridge" />
+  <meta name="author" content="Kevin Butler" />
+  <title>Python: Working With Scientific Data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; }
+code > span.dt { color: #dfdfbf; }
+code > span.dv { color: #dcdccc; }
+code > span.bn { color: #dca3a3; }
+code > span.fl { color: #c0bed1; }
+code > span.ch { color: #dca3a3; }
+code > span.st { color: #cc9393; }
+code > span.co { color: #7f9f7f; }
+code > span.ot { color: #efef8f; }
+code > span.al { color: #ffcfaf; }
+code > span.fu { color: #efef8f; }
+code > span.er { color: #c3bf9f; }
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <style type="text/css">
+      .reveal pre.sourceCode {
+          line-height: 1.5em;
+          font-size: 0.65em;
+      }
+  
+      .reveal a {
+          color: #78dcfd;
+      }
+  
+      .reveal h1, .reveal h2, .reveal h3 {
+          text-transform: None;
+          font-family: "Arial","Source Sans Pro","Helvetica",sans-serif;
+          color: #fff;
+          /*letter-spacing: -0.03em;*/
+      }
+  
+      .reveal h1 {
+          font-weight: bold;
+          font-size: 3.0em;
+      }
+  
+      .reveal h2.author {
+          text-align: left;
+      }
+      .reveal h1.title {
+          text-align: left;
+          font-size: 2.7em;
+      } 
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section data-background="images/opener_blank.png">
+    <h1 class="title">Python: Working With Scientific Data</h1>
+    <h2 class="author">Shaun Walbridge</h2>
+    <h2 class="author">Kevin Butler</h2>
+    <h3 class="date"></h3>
+</section>
+
+<section><section id="python" class="titleslide slide level1" data-background="images/blank.png"><h1>Python</h1></section><section id="why-python" class="slide level2" data-background="images/blank.png">
+<h1>Why Python?</h1>
+<ul>
+<li>Accessible for new-comers, and the <a href="http://cacm.acm.org/blogs/blog-cacm/176450-python-is-now-the-most-popular-introductory-teaching-language-at-top-us-universities/fulltext">most taught first language in US universites</a></li>
+<li>Extensive package collection (56 thousand on <a href="https://pypi.python.org/pypi">PyPI</a>), broad user-base</li>
+<li>Strong glue language used to bind together many environments, both open source and commercial</li>
+<li>Open source with liberal license — do what you want</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Brand new to Python? This talk may be challenging</li>
+<li>Resources include materials that for getting started</li>
+</ul>
+</div>
+</section><section id="release-history" class="slide level2" data-background="images/blank.png">
+<h1>Release History</h1>
+<ul>
+<li>ArcGIS 9.0 (2004, Python 2.1)
+<ul>
+<li><p>PythonWin COM bindings</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> win32com
+gp = win32com.client.dispatch(<span class="st">&quot;esriGeoProcessing.GpDispatch.1&quot;</span>)</code></pre></li>
+</ul></li>
+<li>ArcGIS 9.2 (2006, Python 2.4)
+<ul>
+<li>NumPy 1.0.3</li>
+<li><p>Python-native module</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> arcgisscripting
+gp = arcgisscripting.create()</code></pre></li>
+</ul></li>
+</ul>
+</section><section id="release-history-1" class="slide level2" data-background="images/blank.png">
+<h1>Release History</h1>
+<ul>
+<li>ArcGIS 9.3 (2008, Python 2.5.1)
+<ul>
+<li>Python GP on Server</li>
+<li><code>gp = arcgisscripting.create(9.3)</code></li>
+</ul></li>
+<li>ArcGIS 10.0 (2010, Python 2.6)
+<ul>
+<li>Fully integrated module: <code>import arcpy</code></li>
+<li>Python window</li>
+<li>New extensions:
+<ul>
+<li>arcpy.sa</li>
+<li>arcpy.mapping</li>
+<li>arcpy.ga</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="release-history-2" class="slide level2" data-background="images/blank.png">
+<h1>Release History</h1>
+<ul>
+<li>ArcGIS 10.1 (2012, Python 2.7)
+<ul>
+<li>Fast cursors: <code>arcpy.da.*</code></li>
+<li>Python Add-Ins and Python Toolboxes</li>
+<li>Background Geoprocessing (64-bit)</li>
+<li>matplotlib</li>
+</ul></li>
+<li>ArcGIS 10.3 (2014, Python 2.7.8)
+<ul>
+<li>Python 3.4 in Pro</li>
+<li>NetCDF4</li>
+<li><a href="http://desktop.arcgis.com/en/desktop/latest/manage-data/raster-and-images/python-raster-function.htm">Python raster function</a>, with a <a href="https://github.com/Esri/raster-functions">repository of examples</a> using SciPy for on the fly visualizations</li>
+</ul></li>
+</ul>
+</section><section id="release-history-3" class="slide level2" data-background="images/blank.png">
+<h1>Release History</h1>
+<ul>
+<li>Next:
+<ul>
+<li>SciPy stack</li>
+<li>Package Management Enivonment (pip + the hard stuff)</li>
+<li>Integration with R statistical language</li>
+</ul></li>
+<li>Move toward maintainable, reusable code and beyond the “one-off”</li>
+</ul>
+</section></section>
+<section><section id="scipy" class="titleslide slide level1" data-background="images/blank.png"><h1>SciPy</h1></section><section id="why-scipy" class="slide level2" data-background="images/blank.png">
+<h1>Why SciPy?</h1>
+<ul>
+<li>Most languages don't support things useful for science, e.g.:
+<ul>
+<li>Vector primitives</li>
+<li>Complex numbers</li>
+<li>Statistics</li>
+</ul></li>
+<li>Object oriented programming isn't always the right paradigm for analysis applications, but is the only way to go in many modern languages</li>
+<li>SciPy brings the pieces that matter for scientific problems to Python</li>
+</ul>
+</section><section id="included-scipy" class="slide level2" data-background="images/blank.png">
+<h1>Included SciPy</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: right;">KLOC</th>
+<th style="text-align: right;">Contributors</th>
+<th style="text-align: right;">Stars</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="http://matplotlib.org/">matplotlib</a></td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">312</td>
+<td style="text-align: right;">2313</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="http://readthedocs.org/docs/nose/en/latest/">Nose</a></td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">744</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="http://www.numpy.org/">NumPy</a></td>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">299</td>
+<td style="text-align: right;">1804</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="http://pandas.pydata.org">Pandas</a></td>
+<td style="text-align: right;">112</td>
+<td style="text-align: right;">349</td>
+<td style="text-align: right;">4115</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="http://scipy.org/scipylib/">SciPy</a></td>
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">265</td>
+<td style="text-align: right;">1528</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="http://sympy.org/">SymPy</a></td>
+<td style="text-align: right;">223</td>
+<td style="text-align: right;">340</td>
+<td style="text-align: right;">1981</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Totals</td>
+<td style="text-align: right;">580</td>
+<td style="text-align: right;">1369</td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</section><section id="section" class="slide level2" data-background="images/blank.png">
+<h1><img src="images/logos/numpy.png" /></h1>
+<ol type="1">
+<li>An array object of arbitrary homogeneous items</li>
+<li>Fast mathematical operations over arrays</li>
+<li>Linear Algebra, Fourier Transforms, Random Number Generation</li>
+</ol>
+<figure>
+<img src="images/numpy-array.png" />
+</figure>
+<p><a href="https://scipy-lectures.github.io/intro/numpy/array_object.html#indexing-and-slicing">SciPy Lectures</a>, CC-BY</p>
+</section><section id="arcgis-numpy" class="slide level2" data-background="images/blank.png">
+<h1>ArcGIS + NumPy</h1>
+<ul>
+<li>ArcGIS and NumPy can interoperate on raster, table, and feature data.</li>
+<li>See <a href="http://desktop.arcgis.com/en/desktop/latest/analyze/python/working-with-numpy-in-arcgis.htm">Working with NumPy in ArcGIS</a></li>
+<li>In-memory data model. Example script to <a href="../examples/process-by-blocks.py">process by blocks</a> if working with larger data.</li>
+</ul>
+</section><section id="arcgis-numpy-1" class="slide level2" data-background="images/blank.png">
+<h1>ArcGIS + NumPy</h1>
+<figure>
+<img src="images/arcgis-numpy-workflow.png" />
+</figure>
+</section><section id="section-1" class="slide level2" data-background="images/blank.png">
+<h1><img src="images/logos/matplotlib.png" /></h1>
+<ul>
+<li>Plotting library and API for NumPy data</li>
+</ul>
+<figure>
+<img src="images/special-1.png" />
+</figure>
+</section><section id="section-2" class="slide level2" data-background="images/blank.png">
+<h1><img src="images/logos/scipy.png" /></h1>
+<p>Computational methods for:</p>
+<ul>
+<li>Integration (<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/integrate.html">scipy.integrate</a>)</li>
+<li>Optimization (<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html">scipy.optimize</a>)</li>
+<li>Interpolation (<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/interpolate.html">scipy.interpolate</a>)</li>
+<li>Fourier Transforms (<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/fftpack.html">scipy.fftpack</a>)</li>
+<li>Signal Processing (<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/signal.html">scipy.signal</a>)</li>
+<li>Linear Algebra (<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/linalg.html">scipy.linalg</a>)</li>
+<li>Spatial (<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/spatial.html">scipy.spatial</a>)</li>
+<li><strong>Statistics</strong> (<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/integrate.html">scipy.stats</a>)</li>
+<li><strong>Multidimensional image processing</strong> (<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/ndimage.html">scipy.ndimage</a>)</li>
+</ul>
+<aside class="notes">
+<p>Spatial is the tools across all of the domains of science, very general.</p>
+<p>That said, can be useful in a variety of circumstances, e.g. <code>KDTree</code> for finding data quickly.</p>
+</aside>
+</section><section id="scipy-geometric-mean" class="slide level2" data-background="images/blank.png">
+<h1>SciPy: Geometric Mean</h1>
+<ul>
+<li>Calculating a geometric mean of an <em>entire raster</em> using SciPy (<a href="../examples/geometric-mean.py">source</a>)</li>
+</ul>
+<figure>
+<img src="images/geom-mean.png" />
+</figure>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> scipy.stats  
+rast_in = <span class="st">&#39;data/input_raster.tif&#39;</span>
+rast_as_numpy_array = arcpy.RasterToNumPyArray(rast_in)
+raster_geometric_mean = scipy.stats.stats.gmean(
+    rast_as_numpy_array, axis=<span class="ot">None</span>)  </code></pre>
+<aside class="notes">
+<p>(<a href="https://geonet.esri.com/message/436296#436296">Inspiration</a>)</p>
+</aside>
+</section><section id="section-3" class="slide level2" data-background="images/blank.png">
+<h1><img src="images/logos/pandas.png" /></h1>
+<ul>
+<li><strong>Pan</strong>el <strong>Da</strong>ta — like R &quot;data frames&quot;</li>
+<li>Bring a robust data <em>analysis</em> workflow to Python</li>
+</ul>
+<p>(<a href="../examples/pandas-filter.py">Source</a>)</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> pandas
+
+data = pandas.read_csv(<span class="st">&#39;data/season-ratings.csv&#39;</span>)
+data.columns</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python">Index([<span class="st">u&#39;season&#39;</span>, <span class="st">u&#39;households&#39;</span>, <span class="st">u&#39;rank&#39;</span>, <span class="st">u&#39;tv_households&#39;</span>, \
+       <span class="co">u&#39;net_indep&#39;</span>, <span class="st">u&#39;primetime_pct&#39;</span>], dtype=<span class="st">&#39;object&#39;</span>)</code></pre>
+</section><section id="section-4" class="slide level2" data-background="images/blank.png">
+<h1><img src="images/logos/pandas.png" /></h1>
+<pre class="sourceCode python"><code class="sourceCode python">majority_simpsons = data[data.primetime_pct &gt; <span class="dv">50</span>]</code></pre>
+<pre><code>    season households  tv_households  net_indep  primetime_pct
+0        1  13.4m[41]           92.1       51.6      80.751174
+1        2  12.2m[n2]           92.1       50.4      78.504673
+2        3  12.0m[n3]           92.1       48.4      76.582278
+3        4  12.1m[48]           93.1       46.2      72.755906
+4        5  10.5m[n4]           93.1       46.5      72.093023
+5        6   9.0m[50]           95.4       46.1      71.032357
+6        7   8.0m[51]           95.9       46.6      70.713202
+7        8   8.6m[52]           97.0       44.2      67.584098
+8        9   9.1m[53]           98.0       42.3      64.383562
+9       10   7.9m[54]           99.4       39.9      60.916031
+10      11   8.2m[55]          100.8       38.1      57.466063
+11      12  14.7m[56]          102.2       36.8      53.958944
+12      13  12.4m[57]          105.5       35.0      51.094891</code></pre>
+</section><section id="section-5" class="slide level2" data-background="images/blank.png">
+<h1><img src="images/logos/sympy.png" /></h1>
+<ul>
+<li>A Computer Algebra System (CAS), solve math equations (<a href="../examples/sympy-algebra.py">source</a>)</li>
+</ul>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> sympy <span class="ch">import</span> *
+x = symbol(<span class="st">&#39;x&#39;</span>)
+eq = Eq(x**<span class="dv">3</span> + <span class="dv">2</span>*x**<span class="dv">2</span> + <span class="dv">4</span>*x + <span class="dv">8</span>, <span class="dv">0</span>)</code></pre>
+<figure>
+<img src="images/sympy-eq.png" />
+</figure>
+<pre class="sourceCode python"><code class="sourceCode python">solve(eq, x)</code></pre>
+<figure>
+<img src="images/sympy-res.png" />
+</figure>
+</section><section id="where-can-i-run-this" class="slide level2" data-background="images/blank.png">
+<h1>Where Can I Run This?</h1>
+<ul>
+<li>Now:
+<ul>
+<li>ArcGIS Pro (64-bit) &quot;Standalone Python Install for Pro&quot;
+<ul>
+<li>Ships most of <a href="http://www.scipy.org/about">Scipy Stack</a> (missing IPython)</li>
+</ul></li>
+<li>NumPy: ArcGIS 9.2+, matplotlib: ArcGIS 10.1+</li>
+</ul></li>
+<li>Upcoming:
+<ul>
+<li>ArcGIS Desktop (32-bit), Background Geoprocessing (64-bit), Server (64-bit), Engine (32-bit)</li>
+<li>IPython Included</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="multidimensional-data" class="titleslide slide level1" data-background="images/blank.png"><h1>Multidimensional Data</h1></section><section id="netcdf4" class="slide level2" data-background="images/blank.png">
+<h1>NetCDF4</h1>
+<ul>
+<li>Fast, HDF5 and NetCDF4 read+write support, OPeNDAP</li>
+<li>Heirarchical data structures</li>
+<li>Widely used in meterology, oceanography, climate communities</li>
+<li>Easier: Multidimensional Toolbox, but can be useful</li>
+</ul>
+<p>(<a href="../examples/netcdf-open.py">Source</a>)</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> netCDF4
+nc = netCDF4.Dataset(<span class="st">&#39;test.nc&#39;</span>, <span class="st">&#39;r&#39;</span>, <span class="dt">format</span>=<span class="st">&#39;NETCDF4&#39;</span>)
+<span class="dt">print</span> nc.file_format
+<span class="co"># outputs: NETCDF4</span>
+nc.close()</code></pre>
+<aside class="notes">
+<ul>
+<li>CF compliant data</li>
+<li>Fast, C-based access</li>
+</ul>
+</aside>
+</section><section id="multi-d-improvements" class="slide level2" data-background="images/blank.png">
+<h1>Multi-D Improvements</h1>
+<ul>
+<li>Multidimensional formats: HDF, GRIB, NetCDF</li>
+<li>Access via OPeNDAP, vector renderer, Raster Function Chaining</li>
+<li><a href="http://desktop.arcgis.com/en/desktop/latest/manage-data/raster-and-images/creating-and-visualizing-a-multidimensional-mosaic-dataset.htm">An example which combines mutli-D with time</a></li>
+<li>Multi-D supported as WMS, and in Mosaic datasets (10.2.1+)</li>
+</ul>
+</section></section>
+<section><section id="demo-benthic-terrain-modeler" class="titleslide slide level1" data-background="images/btm-terrain.jpg"><h1>Demo: Benthic Terrain Modeler</h1></section><section id="benthic-terrain-modeler" class="slide level2" data-background="images/blank.png">
+<h1>Benthic Terrain Modeler</h1>
+<ul>
+<li>A Python Add-in and Python toolbox for geomorphology</li>
+<li>Open source, can borrow code for your own projects: <a href="https://github.com/EsriOceans/btm" class="uri">https://github.com/EsriOceans/btm</a></li>
+<li>Active community of users, primarily marine scientists, but also useful for other applications</li>
+</ul>
+</section><section id="lightweight-scipy-integration" class="slide level2" data-background="images/blank.png">
+<h1>Lightweight SciPy Integration</h1>
+<ul>
+<li>Using <code>scipy.ndimage</code> to perform basic multiscale analysis</li>
+<li>Using <code>scipy.stats</code> to compute circular statistics</li>
+</ul>
+</section><section id="lightweight-scipy-integration-1" class="slide level2" data-background="images/blank.png">
+<h1>Lightweight SciPy Integration</h1>
+<p><a href="../examples/calculate-bpi-with-scipy.py">Example source</a></p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> arcpy
+<span class="ch">import</span> scipy.ndimage <span class="ch">as</span> nd
+<span class="ch">from</span> matplotlib <span class="ch">import</span> pyplot <span class="ch">as</span> plt
+
+ras = <span class="st">&quot;data/input_raster.tif&quot;</span>
+r = arcpy.RasterToNumPyArray(ras, <span class="st">&quot;&quot;</span>, <span class="dv">200</span>, <span class="dv">200</span>, <span class="dv">0</span>)
+
+fig = plt.figure(figsize=(<span class="dv">10</span>, <span class="dv">10</span>))</code></pre>
+</section><section id="lightweight-scipy-integration-2" class="slide level2" data-background="images/blank.png">
+<h1>Lightweight SciPy Integration</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">for</span> i in <span class="dt">xrange</span>(<span class="dv">25</span>):
+    size = (i<span class="dv">+1</span>) * <span class="dv">3</span>
+    <span class="dt">print</span> <span class="st">&quot;running {}&quot;</span>.<span class="dt">format</span>(size)
+    med = nd.median_filter(r, size)
+
+    a = fig.add_subplot(<span class="dv">5</span>, <span class="dv">5</span>,i<span class="dv">+1</span>)
+    plt.imshow(med, interpolation=<span class="st">&#39;nearest&#39;</span>)
+    a.set_title(<span class="st">&#39;{}x{}&#39;</span>.<span class="dt">format</span>(size, size))
+    plt.axis(<span class="st">&#39;off&#39;</span>)
+    plt.subplots_adjust(hspace = <span class="fl">0.1</span>)
+    prev = med
+
+plt.savefig(<span class="st">&quot;btm-scale-compare.png&quot;</span>, bbox_inches=<span class="st">&#39;tight&#39;</span>)</code></pre>
+</section><section id="section-6" class="slide level2" data-background="images/btm-scale-compare-2.png">
+<h1>.</h1>
+<p><br /></p>
+</section><section id="scipy-statistics" class="slide level2" data-background="images/blank.png">
+<h1>SciPy Statistics</h1>
+<figure>
+<img src="images/aspect-statistical.png" />
+</figure>
+<ul>
+<li>Break down aspect into <code>sin()</code> and <code>cos()</code> variables</li>
+<li>Aspect is a circular variable — without this 0 and 360 are opposites instead of being the same value</li>
+</ul>
+</section><section id="scipy-statistics-1" class="slide level2" data-background="images/blank.png">
+<h1>SciPy Statistics</h1>
+<p>Summary statistics from SciPy include circular statistics (<a href="../examples/circular-stats.py">source</a>).</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> scipy.stats.morestats
+
+ras = <span class="st">&quot;data/aspect_raster.tif&quot;</span>
+r = arcpy.RasterToNumPyArray(ras)
+
+morestats.circmean(r)
+morestats.circstd(r)
+morestats.circvar(r)</code></pre>
+</section><section id="testing-with-nose" class="slide level2" data-background="images/blank.png">
+<h1>Testing with Nose</h1>
+<ul>
+<li><a href="https://nose.readthedocs.org/en/latest/testing.html">Nose</a> — a Python framework for testing</li>
+<li>Tests improve your productivity, and create robust code</li>
+<li>Nose builds on <code>unittest</code> framework, extends it to make testing easy.</li>
+<li>Plugin architecture, <a href="https://nose.readthedocs.org/en/latest/plugins/builtin.html">includes a number of plugins</a> and can be extended with <a href="https://nose-plugins.jottit.com/">third-party plugins</a>.</li>
+</ul>
+</section><section id="testing-with-nose-1" class="slide level2" data-background="images/blank.png">
+<h1>Testing with Nose</h1>
+<p>An example test from <code>testMain.py</code> (<a href="https://github.com/EsriOceans/btm/blob/master/tests/testMain.py">full code</a>, <a href="../examples/nose-test.py">example</a>):</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> TestBpi(unittest.TestCase):
+    <span class="kw">def</span> testBpiRun(<span class="ot">self</span>):
+       input_raster = <span class="st">&#39;data/input_raster.tif&#39;</span>
+       output_raster = <span class="st">&#39;test_run_bpi.tif&#39;</span>
+       bpi.main(input_raster, <span class="dv">10</span>, <span class="dv">30</span>, output_raster)
+            
+       <span class="co"># Does our raster match the known mean?</span>
+       <span class="ot">self</span>.assertAlmostEqual(
+           utils.raster_properties(output_raster, <span class="st">&quot;MEAN&quot;</span>),
+           <span class="fl">0.295664335664</span>)</code></pre>
+</section><section id="testing-with-nose-2" class="slide level2" data-background="images/blank.png">
+<h1>Testing with Nose</h1>
+<p>Test specific BTM script:</p>
+<pre><code>cd tests/
+nosetests -s testMain:TestBpi</code></pre>
+<p>Output:</p>
+<pre><code>-----------------------------------------------------------------------------
+2 tests run in 7.1 seconds (2 tests passed)
+----------------------------------------------------------------------
+Ran 2 tests in 4.217s
+
+OK</code></pre>
+</section><section id="testing-with-nose-3" class="slide level2" data-background="images/blank.png">
+<h1>Testing with Nose</h1>
+<p>Supports many more options, and can integrate with tools like <a href="http://nedbatchelder.com/code/coverage/"><code>coverage</code></a> to give you information about testing coverage, or the amount of code that you've added tests for, and what lines of code are missing from your tests:</p>
+<pre><code>nosetests --with-coverage</code></pre>
+</section><section id="testing-with-nose-4" class="slide level2" data-background="images/blank.png">
+<h1>Testing with Nose</h1>
+<p>Coverage results:</p>
+<pre><code>Name                         Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------
+scripts.aspect                  24      4    83%   48-49, 53-54
+scripts.bpi                     24      4    83%   57-58, 62-63
+scripts.btm_model               39      4    90%   83-85, 89-90
+scripts.classify                90     20    78%   23, 30, 115-142
+scripts.config                   4      0   100%
+scripts.depth_statistics        39      4    90%   67-68, 72-73
+scripts.ruggedness              49      4    92%   96-97, 101-102
+scripts.slope                   18      4    78%   41-42, 46-47
+scripts.standardize_bpi_grids   28      4    86%   57-58, 62-63
+scripts.surface_to_planar      100      9    91%   179-180, 188-198
+scripts.utils                  229     38    83%   37-51, 57-86
+-------------------------------------------------------------------
+TOTAL                          644     95    85
+
+------------------------------------------------------------------
+45 tests run in 316.5 seconds (45 tests passed)
+------------------------------------------------------------------
+Ran 45 tests in 316.091s
+
+OK</code></pre>
+</section></section>
+<section><section id="from-future-import" class="titleslide slide level1" data-background="images/blank.png"><h1>from future import *</h1></section><section id="opening-doors" class="slide level2" data-background="images/blank.png">
+<h1>Opening Doors</h1>
+<ul>
+<li>Machine learning (scikit-learn, scikit-image, ...)</li>
+<li>Deep learning (theano, ...)</li>
+<li>Bayesian statistics (<a href="https://github.com/pymc-devs/pymc3">PyMC</a>, ...)
+<ul>
+<li>Markov Chain Monte Carlo (MCMC)</li>
+</ul></li>
+<li>Frequentist statistics (statsmodels)</li>
+</ul>
+</section></section>
+<section><section id="resources" class="titleslide slide level1" data-background="images/blank.png"><h1>Resources</h1></section><section id="other-sessions" class="slide level2" data-background="images/blank.png">
+<h1>Other Sessions</h1>
+<ul>
+<li>Python Raster Function: Custom On-the-fly Analysis</li>
+<li>Python: Working with Raster Data</li>
+<li>Python: Developing Geoprocessing Tools</li>
+<li>Integrating Open-source Statistical Packages with ArcGIS</li>
+<li>ArcGIS Pro: Map Automation with Python</li>
+</ul>
+</section><section id="new-to-python" class="slide level2" data-background="images/blank.png">
+<h1>New to Python</h1>
+<ul>
+<li>Courses:
+<ul>
+<li><a href="https://www.coursera.org/course/pythonlearn">Programming for Everybody</a></li>
+<li><a href="http://www.codecademy.com/tracks/python">Codecademy: Python Track</a></li>
+</ul></li>
+<li>Books:
+<ul>
+<li><a href="http://learnpythonthehardway.org/">Learn Python the Hard Way</a></li>
+<li><a href="http://interactivepython.org/runestone/static/thinkcspy/toc.html">How to Think Like a Computer Scientist</a></li>
+</ul></li>
+</ul>
+</section><section id="gis-focused" class="slide level2" data-background="images/blank.png">
+<h1>GIS Focused</h1>
+<ul>
+<li><a href="http://esripress.esri.com/display/index.cfm?fuseaction=display&amp;websiteID=276&amp;moduleID=0">Python Scripting for ArcGIS</a></li>
+<li><a href="https://www.packtpub.com/application-development/arcpy-and-arcgis-geospatial-analysis-python">ArcPy and ArcGIS - Geospatial Analysis with Python</a></li>
+<li><a href="https://geonet.esri.com/community/developers/gis-developers/python">Python Developers GeoNet Community</a></li>
+<li><a href="https://gis.stackexchange.com/">GIS Stackexchange</a></li>
+</ul>
+</section><section id="scientific" class="slide level2" data-background="images/blank.png">
+<h1>Scientific</h1>
+<p>Courses:</p>
+<ul>
+<li><a href="https://scipy-lectures.github.io">Python Scientific Lecture Notes</a></li>
+<li><a href="https://www.coursera.org/course/scicomp">High Performance Scientific Computing</a></li>
+<li><a href="https://www.coursera.org/course/matrix">Coding the Matrix: Linear Algebra through Computer Science Applications</a></li>
+<li><a href="https://www.coursera.org/course/datascitoolbox">The Data Scientist's Toolbox</a></li>
+</ul>
+</section><section id="scientific-1" class="slide level2" data-background="images/blank.png">
+<h1>Scientific</h1>
+<p>Books:</p>
+<ul>
+<li>Free:
+<ul>
+<li><a href="https://camdavidsonpilon.github.io/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/">Probabilistic Programming &amp; Bayesian Methods for Hackers</a>
+<ul>
+<li>very compelling book on Bayesian methods in Python, uses SciPy + PyMC.</li>
+</ul></li>
+<li><a href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python">Kalman and Bayesian Filters in Python</a></li>
+</ul></li>
+</ul>
+</section><section id="scientific-2" class="slide level2" data-background="images/blank.png">
+<h1>Scientific</h1>
+<ul>
+<li>Paid:
+<ul>
+<li><a href="http://www.codingthematrix.com/">Coding the Matrix</a>
+<ul>
+<li>How to use linear algebra and Python to solve amazing problems.</li>
+</ul></li>
+<li><a href="http://shop.oreilly.com/product/0636920023784.do">Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython</a>
+<ul>
+<li>The cannonical book on Pandas and analysis.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="packages" class="slide level2" data-background="images/blank.png">
+<h1>Packages</h1>
+<p>Only require SciPy Stack:</p>
+<ul>
+<li>Scikit-learn:
+<ul>
+<li><a href="https://scipy-lectures.github.io/advanced/scikit-learn/index.html">Lecture material</a></li>
+<li>Includes SVMs, can use those for image processing among other things...</li>
+</ul></li>
+<li>FilterPy:
+<ul>
+<li>Kalman filtering and optimal estimation:</li>
+<li><a href="https://github.com/rlabbe/filterpy">FilterPy on GitHub</a></li>
+</ul></li>
+</ul>
+</section><section id="code" class="slide level2" data-background="images/blank.png">
+<h1>Code</h1>
+<ul>
+<li><a href="https://github.com/search?p=5&amp;q=scipy+arcpy&amp;type=Code&amp;utf8=%E2%9C%93">ArcPy + SciPy on Github</a></li>
+<li><a href="https://github.com/Esri/raster-functions">raster-functions</a>
+<ul>
+<li>An open source collection of function chains to show how to do complex things using NumPy + scipy on the fly for visualization purposes</li>
+</ul></li>
+<li><a href="https://docs.python.org/3/library/statistics.html">statistics library</a> with a handful of descriptive statistics included in Python 3.4.</li>
+<li><em>TIP</em>: Want a codebase that runs in Python 2 and 3? <a href="http://python-future.org">Check out future</a>, which helps maintain a single codebase that supports both. Includes the <code>futurize</code> script to initially a project written for one version.</li>
+</ul>
+</section><section id="scientific-arcgis-extensions" class="slide level2" data-background="images/blank.png">
+<h1>Scientific ArcGIS Extensions</h1>
+<ul>
+<li><a href="http://www.movementecology.net/">Movement Ecology Tools for ArcGIS (ArcMET)</a></li>
+<li><a href="http://mgel.env.duke.edu/mget/">Marine Geospatial Ecology Tools (MGET)</a>
+<ul>
+<li>Combines Python, R, and MATLAB to solve a wide variety of problems</li>
+</ul></li>
+<li><a href="http://sdmtoolbox.org/">SDMToolbox</a>
+<ul>
+<li>species distribution &amp; maximum entropy models</li>
+</ul></li>
+<li><a href="http://www.arcgis.com/home/item.html?id=b0d0be66fd33440d97e8c83d220e7926">Benthic Terrain Modeler</a></li>
+<li><a href="http://www.spatialecology.com/gme/">Geospatial Modeling Environment</a></li>
+<li><a href="http://www.circuitscape.org/">CircuitScape</a></li>
+</ul>
+</section><section id="conferences" class="slide level2" data-background="images/blank.png">
+<h1>Conferences</h1>
+<ul>
+<li><a href="https://pycon.org">PyCon</a>
+<ul>
+<li>The largest gathering of Pythonistas in the world</li>
+</ul></li>
+<li><a href="https://scipy.org">SciPy</a>
+<ul>
+<li>A meeting of Scientific Python users from all walks</li>
+</ul></li>
+<li><a href="http://pyvideo.org/">PyVideo</a>
+<ul>
+<li>Talks from Python conferences around the world available freely online.</li>
+<li><a href="http://pyvideo.org/search?models=videos.video&amp;q=gis">PyVideo GIS talks</a></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="closing" class="titleslide slide level1" data-background="images/blank.png"><h1>Closing</h1></section><section id="thanks" class="slide level2" data-background="images/blank.png">
+<h1>Thanks</h1>
+<ul>
+<li>Geoprocessing Team</li>
+<li>The many amazing contributors to the projects demonstrated here.
+<ul>
+<li>Get involved! All are on GitHub and happily accept contributions.</li>
+</ul></li>
+</ul>
+</section><section id="rate-this-session" class="slide level2" data-background="images/blank.png">
+<h1>Rate This Session</h1>
+<p><a href="https://www.esri.com/RateMyDevSummitSession"><strong>www.esri.com/RateMyDevSummitSession</strong></a></p>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
