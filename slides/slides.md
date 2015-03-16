@@ -235,7 +235,7 @@ Where Can I Run This? {data-background="images/blank.png"}
 ---------------------
  * Now: 
     - ArcGIS Pro (64-bit) "Standalone Python Install for Pro"
-        + Ships most of [Scipy Stack](http://www.scipy.org/about) (missing IPython)
+        + Ships most of [Scipy Stack](https://www.scipy.org/about.html) (missing IPython)
     - NumPy: ArcGIS 9.2+, matplotlib: ArcGIS 10.1+
  * Upcoming:
     - ArcGIS Desktop (32-bit), Background Geoprocessing (64-bit), Server (64-bit), Engine (32-bit)
@@ -538,7 +538,7 @@ Scientific ArcGIS Extensions {data-background="images/blank.png"}
 Conferences {data-background="images/blank.png"}
 -----------
 
- - [PyCon](https://pycon.org)
+ - [PyCon](http://pycon.org)
     + The largest gathering of Pythonistas in the world
  - [SciPy](https://scipy.org)
     + A meeting of Scientific Python users from all walks
