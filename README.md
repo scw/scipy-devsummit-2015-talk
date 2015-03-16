@@ -7,9 +7,9 @@ Python: Working with Scientific Data
 
 **[See the presentation](https://4326.us/scipy)**
 
-**[Download a PDF handout version](https://4326.us/scipy/devsummit-2015-scipy-arcgis-presentation-handout.pdf)**
+**[Download Handout Version (PDF)](https://4326.us/scipy/devsummit-2015-scipy-arcgis-presentation-handout.pdf)**
 
-**[Download a High Quality PDF (57MB)](https://4326.us/scipy/devsummit-2015-scipy-arcgis-presentation-full.pdf)**
+**[Download High Quality Version (PDF, 57MB)](https://4326.us/scipy/devsummit-2015-scipy-arcgis-presentation-full.pdf)**
 
 Description
 -----------
