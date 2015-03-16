@@ -1,6 +1,12 @@
 % Python: Working With Scientific Data
 % Shaun Walbridge; Kevin Butler
 
+<section data-background="images/opener_blank.png">
+<h2>[https://github.com/scw/scipy-devsummit-2015-talk](https://github.com/scw/scipy-devsummit-2015-talk)</h2>
+<h3>[Handout PDF](https://4326.us/scipy/devsummit-2015-scipy-arcgis-presentation-handout.pdf)</h3>
+<h3>[High Quality PDF (57MB)](https://4326.us/scipy/devsummit-2015-scipy-arcgis-presentation-full.pdf)</h3>
+</section>
+
 Python {data-background="images/blank.png"}
 ======
 
