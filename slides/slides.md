@@ -234,7 +234,7 @@ solve(eq, x)
 Where Can I Run This? {data-background="images/blank.png"}
 ---------------------
  * Now: 
-    - ArcGIS Pro (64-bit) "Standalone Python Install for Pro"
+    - ArcGIS Pro (64-bit) "[Standalone Python Install for Pro](http://pro.arcgis.com/en/pro-app/arcpy/get-started/installing-python-for-arcgis-pro.htm)"
         + Ships most of [Scipy Stack](https://www.scipy.org/about.html) (missing IPython)
     - NumPy: ArcGIS 9.2+, matplotlib: ArcGIS 10.1+
  * Upcoming:
