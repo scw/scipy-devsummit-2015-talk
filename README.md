@@ -5,7 +5,9 @@ Python: Working with Scientific Data
 ### Esri DevSummit 2015
 
 
-**[Watch The Presentation](https://4326.us/scipy)**
+**[Watch The Presentation](http://video.esri.com/watch/4419/python-working-with-scientific-data)**
+
+**[View the Slides](https://4326.us/scipy/)**
 
 **[Download Handout Version (PDF)](https://4326.us/scipy/devsummit-2015-scipy-arcgis-presentation-handout.pdf)**
 
